@@ -27,7 +27,7 @@ def _throttle():
     wait = MIN_SECONDS_BETWEEN_REQS - (time.monotonic() - _last_request_at)
     if wait > 0:
         time.sleep(wait)
-    _last_request_at = time.monotonic
+    _last_request_at = time.monotonic()
 
 def get(path, params=None):
     """
@@ -78,7 +78,7 @@ def paginate(path, params=None):
 
     while True:
         params["page"] = page
-        body = get(path, page)
+        body = get(path, params)
         results = body.get("results", [])
         if not results:
             return

@@ -33,7 +33,7 @@ UPSERT_LOCATION = text("""
 """)
 
 UPSERT_SENSOR = text("""
-    INSERT INTO sensor (
+    INSERT INTO sensors (
         id, location_id, parameter_id, parameter_name, units
     ) VALUES (
         :id, :location_id, :parameter_id, :parameter_name, :units
@@ -78,7 +78,7 @@ def to_sensor_rows(location):
         rows.append({
             "id": sensor["id"],
             "location_id": location["id"],
-            "parameter": parameter.get("id"),
+            "parameter_id": parameter.get("id"),
             "parameter_name": parameter.get("name") or "unknown",
             "units": parameter.get("units"),
         })
@@ -115,8 +115,8 @@ def run(country_id, batch_size=200):
             batch = []
             print(f"committed {kept} locations so far")
         
-        flush(batch)
-        print("f\ndone. {kept} locations, {sensors_written} sensors, {skipped} skipped.")
+    flush(batch)
+    print(f"\ndone. {kept} locations, {sensors_written} sensors, {skipped} skipped.")
 
 if __name__ == "__main__":
     country = int(sys.argv[1]) if len(sys.argv) > 1 else 155
