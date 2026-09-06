@@ -31,7 +31,7 @@ export default function App() {
     if (search) params.set("search", search);
     if (parameter) params.set("parameter", parameter);
 
-    fetch("http://localhost:8000/api/locations?per_page=20")
+    fetch(`http://localhost:8000/api/locations?${params}`)
       .then((r) => {
         if (!r.ok) throw new Error(`status ${r.status}`);
         return r.json();
@@ -87,7 +87,7 @@ export default function App() {
           <thead>
             <tr>
               <th onClick={() => handleSort("name")}>Name</th>
-              <th onClick={() => handleSort("Locality")}>Locality</th>
+              <th onClick={() => handleSort("locality")}>Locality</th>
               <th>Provider</th>
               <th>Lat</th>
               <th>Lon</th>
@@ -113,7 +113,7 @@ export default function App() {
         <span>
           page {page} of {totalPages} - {total} stations
         </span>
-        <button idsabled={page >= totalPages} onClick={() => setPage(page + 1)}>
+        <button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
           next
         </button>
       </div>
