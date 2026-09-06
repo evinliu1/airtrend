@@ -2,7 +2,7 @@
 
 Air quality trends from OpenAQ (openaq.org)
 
-## Setup
+## Setup Backend
 
 1. copy .env.example to .env, add your OpenAQ key
 2. docker compose up -d

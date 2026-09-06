@@ -3,6 +3,7 @@ import os
 from typing import Optional
 from sqlalchemy import text
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 from app.db import engine
@@ -11,6 +12,12 @@ from app.models import Location, LocationPage
 load_dotenv()
 
 app = FastAPI(title="AirTrend API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 SORTABLE = {"name", "country_code", "locality", "id"}
 
