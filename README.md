@@ -34,3 +34,12 @@ One test station gave -0.271/yr when using all ten years
 but also gave -0.783/yr using only the years above the 75% threshold. Earlier years had roughly
 28-34% coverage which made their averages incomparable to later years in terms of
 data quality
+
+## Notes on data coverage
+
+4,492 of the US pm25 5,838 sensors have yearly data (roughly 77%).
+The remaining 1,346 don't have yearly records from OpenAQ, checked
+directly against the API.
+
+686 of the 14,665 yearly rows report 0% coverage and are excluded by
+the 75% + 5 year rule.
