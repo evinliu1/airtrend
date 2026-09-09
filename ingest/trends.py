@@ -42,9 +42,13 @@ COMPUTE = text("""
         min_coverage = EXCLUDED.min_coverage,
         computed_at = now()
 """)
+CLEAR_OUT = text("""
+    DELETE FROM station_trends WHERE parameter_name = 'pm25'
+""")
 
 def run(min_coverage=75.0, min_years=5):
     with engine.begin() as conn:
+        conn.execute(CLEAR_OUT)
         result = conn.execute(
             COMPUTE, {"min_coverage": min_coverage, "min_years": min_years}
         )
@@ -53,5 +57,5 @@ def run(min_coverage=75.0, min_years=5):
 
 if __name__ == "__main__":
     cov = float(sys.argv[1]) if len(sys.argv) > 1 else 75.0
-    yrs = float(sys.argv[2]) if len(sys.argv) > 2 else 5
+    yrs = int(sys.argv[2]) if len(sys.argv) > 2 else 5
     run(cov, yrs)
